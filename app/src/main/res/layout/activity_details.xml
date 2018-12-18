@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="team.maci.mvvmnoteapp.ui.details.DetailsViewModel" />
+
+        <import type="team.maci.mvvmnoteapp.util.DateConverter" />
+        <import type="team.maci.mvvmnoteapp.util.VisibilityConverter" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:padding="@dimen/m_spacing"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@{viewModel.note.title}"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@{viewModel.note.content}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@{DateConverter.convert(viewModel.note.updatedAt != null ? viewModel.note.updatedAt : viewModel.note.createdAt)}"
+                        android:textColor="#77000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <Space
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:visibility="@{VisibilityConverter.gone(viewModel.note.user == null)}"
+                        android:text="@{viewModel.note.user.username}"
+                        android:textColor="#77000000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/m_spacing"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_width="wrap_content"
+            android:onClick="@{() -> viewModel.onEditClickAction()}"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MVVMNoteApp</string>
+    <string name="splash_welcome">Welcome</string>
+    <string name="splash_app_name">Note App</string>
+    <string name="login_label_username">Username</string>
+    <string name="login_label_password">Password</string>
+    <string name="login_button_submit">Login</string>
+    <string name="login_button_register">Register</string>
+    <string name="register_label_username">Username</string>
+    <string name="register_label_password_again">Password again</string>
+    <string name="register_label_password">Password</string>
+    <string name="register_button_submit">Register</string>
+    <string name="edit_title">Title</string>
+    <string name="edit_description">Description</string>
+    <string name="edit_submit">Save</string>
+</resources>

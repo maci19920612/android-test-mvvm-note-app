@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="team.maci.mvvmnoteapp.ui.list.item.NoteItemViewModel" />
+
+        <import type="team.maci.mvvmnoteapp.util.DateConverter" />
+
+        <import type="team.maci.mvvmnoteapp.util.VisibilityConverter" />
+    </data>
+
+    <LinearLayout
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:onClick="@{() -> viewModel.onItemClickAction()}"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:text="@{viewModel.model.title}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Example note" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@{DateConverter.convert(viewModel.model.updatedAt != null ? viewModel.model.updatedAt : viewModel.model.createdAt)}"
+                    android:textColor="#77000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2018 Dec. 21" />
+
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="#77000000"
+                    android:visibility="@{VisibilityConverter.gone(viewModel.model.user != null)}"
+                    android:text='@{viewModel.model.user != null ? viewModel.model.user.username : ""}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="admin"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <Button
+            android:onClick="@{() -> viewModel.onRemoveItemClickAction()}"
+            android:layout_gravity="center"
+            android:text="X"
+            android:minWidth="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>
