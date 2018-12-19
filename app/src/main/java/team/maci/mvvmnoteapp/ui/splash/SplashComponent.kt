@@ -38,14 +38,3 @@ class SplashModule {
         return SplashNavigator(activity)
     }
 }
-
-@Subcomponent(
-    modules = [
-        SplashModule::class,
-        SplashBinderModule::class
-    ]
-)
-interface SplashComponent : AndroidInjector<SplashActivity> {
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<SplashActivity>()
-}

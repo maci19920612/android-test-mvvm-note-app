@@ -1,7 +1,6 @@
 package team.maci.mvvmnoteapp.util
 
-import android.annotation.SuppressLint
-import java.text.DateFormat
+import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -10,11 +9,11 @@ object DateConverter{
     private val defaultDateFormat = SimpleDateFormat("yyyy MMM dd", Locale.getDefault())
 
     @JvmStatic
-    fun convert(date: Date?) : String{
+    fun convert(date: DateTime?) : String{
         if(date == null){
             return ""
         }
 
-        return defaultDateFormat.format(date)
+        return date.toString("yyyy MMM dd")
     }
 }

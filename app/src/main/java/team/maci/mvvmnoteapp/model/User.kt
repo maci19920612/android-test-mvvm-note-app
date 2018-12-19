@@ -1,5 +1,6 @@
 package team.maci.mvvmnoteapp.model
 
+import org.joda.time.DateTime
 import team.maci.mvvmnoteapp.database.entity.UserEntity
 import java.io.Serializable
 import java.util.*
@@ -7,8 +8,8 @@ import java.util.*
 data class User(
     val id: Int,
     val username: String,
-    val createdAt: Date,
-    val updatedAt: Date?
+    val createdAt: DateTime,
+    val updatedAt: DateTime?
 ) : Serializable
 
 

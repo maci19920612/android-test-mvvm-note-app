@@ -1,14 +1,15 @@
 package team.maci.mvvmnoteapp.database.converters
 
 import androidx.room.TypeConverter
+import org.joda.time.DateTime
 import java.util.*
 
 
 class DateConveter{
     @TypeConverter
-    fun convertToLong(date: Date?) : Long? = date?.time
+    fun convertToLong(date: DateTime?) : Long? = date?.millis
 
 
     @TypeConverter()
-    fun convertFromLong(longTime: Long?) = if(longTime == null) null else Date(longTime)
+    fun convertFromLong(longTime: Long?) = if(longTime == null) null else DateTime(longTime)
 }

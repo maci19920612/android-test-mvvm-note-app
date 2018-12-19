@@ -1,6 +1,7 @@
 package team.maci.mvvmnoteapp.database.entity
 
 import androidx.room.*
+import org.joda.time.DateTime
 import team.maci.mvvmnoteapp.database.converters.DateConveter
 import team.maci.mvvmnoteapp.database.dao.UserDao
 import team.maci.mvvmnoteapp.model.User
@@ -19,10 +20,10 @@ data class NoteEntity(
     @ColumnInfo(name = "content")
     var content: String,
     @ColumnInfo(name = "created_at")
-    var createdAt: Date,
+    var createdAt: DateTime,
 
     @ColumnInfo(name = "updated_at")
-    var updatedAt: Date?,
+    var updatedAt: DateTime?,
 
     @ForeignKey(
         entity = UserEntity::class,
@@ -39,5 +40,5 @@ data class NoteEntity(
         user = userDao.getUserById(userId)
     }
 
-    constructor() : this(0, "", "", Date(), null, 0, null)
+    constructor() : this(0, "", "", DateTime(), null, 0, null)
 }

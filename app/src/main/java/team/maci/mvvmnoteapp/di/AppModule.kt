@@ -3,49 +3,29 @@ package team.maci.mvvmnoteapp.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.google.gson.*
-import com.google.gson.stream.JsonReader
-import com.google.gson.stream.JsonToken
-import com.google.gson.stream.JsonWriter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import team.maci.mvvmnoteapp.Environment
 import team.maci.mvvmnoteapp.api.ApiClient
+import team.maci.mvvmnoteapp.database.NoteDatabase
 import team.maci.mvvmnoteapp.manager.AuthService
 import team.maci.mvvmnoteapp.manager.PreferenceManager
-import team.maci.mvvmnoteapp.ui.login.LoginComponent
-import team.maci.mvvmnoteapp.ui.splash.SplashComponent
 import team.maci.mvvmnoteapp.util.UIDispatcher
-import javax.inject.Singleton
-import okhttp3.logging.HttpLoggingInterceptor
-import team.maci.mvvmnoteapp.database.NoteDatabase
-import team.maci.mvvmnoteapp.database.dao.UserDao
-import team.maci.mvvmnoteapp.ui.details.DetailsActivity
-import team.maci.mvvmnoteapp.ui.details.DetailsComponent
-import team.maci.mvvmnoteapp.ui.edit.EditComponent
-import team.maci.mvvmnoteapp.ui.list.ListComponent
-import team.maci.mvvmnoteapp.ui.register.RegisterComponent
 import java.lang.reflect.Type
-import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Singleton
 
 
-@Module(
-    subcomponents = [
-        SplashComponent::class,
-        LoginComponent::class,
-        RegisterComponent::class,
-        ListComponent::class,
-        DetailsComponent::class,
-        EditComponent::class
-    ]
-)
+@Module()
 class AppModule {
     @Provides
     @Singleton
@@ -95,23 +75,21 @@ class AppModule {
     fun provideGson() : Gson{
         val gsonBuilder = GsonBuilder()
 
-        gsonBuilder.registerTypeAdapter(Date::class.java, object: JsonSerializer<Date?>, JsonDeserializer<Date?> {
-            private val dateFormat = SimpleDateFormat("yyyy/MM/dd/HH/mm/ss", Locale.getDefault())
+        gsonBuilder.registerTypeAdapter(DateTime::class.java, object: JsonSerializer<DateTime?>, JsonDeserializer<DateTime?> {
 
-
-            override fun serialize(src: Date?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement? {
+            override fun serialize(src: DateTime?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement? {
                 return if(src == null){
                     null
                 }else{
-                    JsonPrimitive(dateFormat.format(src))
+                    JsonPrimitive(src.toString(ISODateTimeFormat.dateTime()))
                 }
             }
 
-            override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): Date? {
+            override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): DateTime? {
                 return if(json.isJsonNull){
                     return null
                 }else{
-                    dateFormat.parse(json.asString)
+                    DateTime(json.asString)
                 }
             }
 

@@ -36,14 +36,3 @@ class DetailsModule {
         return ViewModelProviders.of(activity, daggerViewModelFactory)
     }
 }
-
-@Subcomponent(
-    modules = [
-        DetailsBinderModule::class,
-        DetailsModule::class
-    ]
-)
-interface DetailsComponent : AndroidInjector<DetailsActivity> {
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<DetailsActivity>()
-}

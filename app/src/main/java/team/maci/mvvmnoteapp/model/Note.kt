@@ -1,5 +1,6 @@
 package team.maci.mvvmnoteapp.model
 
+import org.joda.time.DateTime
 import team.maci.mvvmnoteapp.database.entity.NoteEntity
 import java.io.Serializable
 import java.util.*
@@ -18,8 +19,8 @@ class Note(
     id: Int,
     title: String,
     content: String,
-    val createdAt: Date,
-    val updatedAt: Date?,
+    val createdAt: DateTime,
+    val updatedAt: DateTime?,
     val user: User
 ) : BaseNote(id, title, content)
 

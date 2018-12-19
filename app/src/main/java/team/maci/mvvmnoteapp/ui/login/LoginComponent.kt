@@ -36,14 +36,3 @@ class LoginModule {
         return ViewModelProviders.of(activity, daggerViewModelProvider)
     }
 }
-
-@Subcomponent(
-    modules = [
-        LoginBinderModule::class,
-        LoginModule::class
-    ]
-)
-interface LoginComponent : AndroidInjector<LoginActivity>{
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<LoginActivity>()
-}

@@ -33,9 +33,12 @@ class NoteManager @Inject constructor(
             noteDao.getNotes()
         }.await()
 
-        notes.forEach {
-            it.loadUser(userDao)
-        }
+
+        GlobalScope.launch {
+            notes.forEach {
+                it.loadUser(userDao)
+            }
+        }.join()
 
         return notes
     }

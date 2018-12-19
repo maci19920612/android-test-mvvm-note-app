@@ -32,15 +32,3 @@ class ListModule {
         listActivity: ListActivity
     ) : ViewModelProvider = ViewModelProviders.of(listActivity,daggerViewModelFactory)
 }
-
-@Subcomponent(
-    modules = [
-        ListBinderModule::class,
-        ListModule::class
-    ]
-)
-interface ListComponent : AndroidInjector<ListActivity>{
-
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<ListActivity>()
-}

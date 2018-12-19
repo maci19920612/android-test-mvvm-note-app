@@ -35,14 +35,3 @@ class RegisterModule {
     ) =
         ViewModelProviders.of(registerActivity, viewModelProviderFactory)
 }
-
-@Subcomponent(
-    modules = [
-        RegisterBinderModule::class,
-        RegisterModule::class
-    ]
-)
-interface RegisterComponent : AndroidInjector<RegisterActivity> {
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<RegisterActivity>()
-}

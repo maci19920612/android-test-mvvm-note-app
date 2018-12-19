@@ -1,57 +1,64 @@
 package team.maci.mvvmnoteapp.di
 
-import dagger.Binds
 import dagger.Module
-import dagger.android.ActivityKey
-import dagger.multibindings.IntoMap
-import android.app.Activity
-import dagger.android.AndroidInjector
-import team.maci.mvvmnoteapp.MainActivity
+import dagger.android.ContributesAndroidInjector
 import team.maci.mvvmnoteapp.ui.details.DetailsActivity
-import team.maci.mvvmnoteapp.ui.details.DetailsComponent
+import team.maci.mvvmnoteapp.ui.details.DetailsBinderModule
+import team.maci.mvvmnoteapp.ui.details.DetailsModule
 import team.maci.mvvmnoteapp.ui.edit.EditActivity
-import team.maci.mvvmnoteapp.ui.edit.EditComponent
+import team.maci.mvvmnoteapp.ui.edit.EditBinderModule
+import team.maci.mvvmnoteapp.ui.edit.EditModule
 import team.maci.mvvmnoteapp.ui.list.ListActivity
-import team.maci.mvvmnoteapp.ui.list.ListComponent
+import team.maci.mvvmnoteapp.ui.list.ListBinderModule
+import team.maci.mvvmnoteapp.ui.list.ListModule
+import team.maci.mvvmnoteapp.ui.list.ListModule_ProvideViewModelProviderFactory
 import team.maci.mvvmnoteapp.ui.login.LoginActivity
-import team.maci.mvvmnoteapp.ui.login.LoginActivity_MembersInjector
-import team.maci.mvvmnoteapp.ui.login.LoginComponent
+import team.maci.mvvmnoteapp.ui.login.LoginBinderModule
+import team.maci.mvvmnoteapp.ui.login.LoginModule
 import team.maci.mvvmnoteapp.ui.register.RegisterActivity
-import team.maci.mvvmnoteapp.ui.register.RegisterComponent
+import team.maci.mvvmnoteapp.ui.register.RegisterBinderModule
+import team.maci.mvvmnoteapp.ui.register.RegisterModule
 import team.maci.mvvmnoteapp.ui.splash.SplashActivity
-import team.maci.mvvmnoteapp.ui.splash.SplashComponent
+import team.maci.mvvmnoteapp.ui.splash.SplashBinderModule
+import team.maci.mvvmnoteapp.ui.splash.SplashModule
 
 
 @Module
-abstract class ActivityModule{
-    @Binds
-    @IntoMap
-    @ActivityKey(SplashActivity::class)
-    abstract fun bindSplashActivity(builder: SplashComponent.Builder): AndroidInjector.Factory<out Activity>
+abstract class ActivityModule {
+    @ContributesAndroidInjector(modules = [
+        SplashBinderModule::class,
+        SplashModule::class
+    ])
+    abstract fun bindSplashActivity(): SplashActivity
 
-    @Binds
-    @IntoMap
-    @ActivityKey(LoginActivity::class)
-    abstract fun bindLoginActivity(builder: LoginComponent.Builder) : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [
+        LoginBinderModule::class,
+        LoginModule::class
+    ])
+    abstract fun bindLoginActivity(): LoginActivity
 
-    @Binds
-    @IntoMap
-    @ActivityKey(RegisterActivity::class)
-    abstract fun bindRegisterActivity(builder: RegisterComponent.Builder) : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [
+        RegisterModule::class,
+        RegisterBinderModule::class
+    ])
+    abstract fun bindRegisterActivity(): RegisterActivity
 
-    @Binds
-    @IntoMap
-    @ActivityKey(ListActivity::class)
-    abstract fun bindListActivity(builder: ListComponent.Builder) : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [
+        ListModule::class,
+        ListBinderModule::class
+    ])
+    abstract fun bindListActivity(): ListActivity
 
-    @Binds
-    @IntoMap
-    @ActivityKey(DetailsActivity::class)
-    abstract fun bindDetailsActivity(builder: DetailsComponent.Builder) : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [
+        DetailsModule::class,
+        DetailsBinderModule::class
+    ])
+    abstract fun bindDetailsActivity(): DetailsActivity
 
-    @Binds
-    @IntoMap
-    @ActivityKey(EditActivity::class)
-    abstract fun bindEditActivity(builder: EditComponent.Builder) : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector(modules = [
+        EditModule::class,
+        EditBinderModule::class
+    ])
+    abstract fun bindEditActivity(): EditActivity
 
 }

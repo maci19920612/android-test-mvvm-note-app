@@ -36,14 +36,3 @@ class EditModule {
         return ViewModelProviders.of(activity, daggerViewModelFactory)
     }
 }
-
-@Subcomponent(
-    modules = [
-        EditModule::class,
-        EditBinderModule::class
-    ]
-)
-interface EditComponent : AndroidInjector<EditActivity> {
-    @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<EditActivity>()
-}
