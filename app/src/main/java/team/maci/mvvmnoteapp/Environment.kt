@@ -8,5 +8,5 @@ class Environment @Inject constructor(){
 
     fun isDebug() = BuildConfig.DEBUG
 
-    fun baseApiUrl() = "http://10.0.2.2/note_app/"
+    fun baseApiUrl() = "http://10.0.2.2:8080/"
 }

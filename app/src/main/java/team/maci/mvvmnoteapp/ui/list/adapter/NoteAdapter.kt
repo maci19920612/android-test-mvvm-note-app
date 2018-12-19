@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import team.maci.mvvmnoteapp.R
+import team.maci.mvvmnoteapp.database.entity.NoteEntity
 import team.maci.mvvmnoteapp.databinding.ItemNoteBinding
 import team.maci.mvvmnoteapp.model.Note
 import team.maci.mvvmnoteapp.ui.list.ListViewModel
@@ -36,7 +37,7 @@ class NoteAdapter(
         holder.binding.executePendingBindings()
     }
 
-    fun setItems(items: List<Note>){
+    fun setItems(items: List<NoteEntity>){
         this.items.clear()
         this.items.addAll(
             items.map {

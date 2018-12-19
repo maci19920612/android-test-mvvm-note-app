@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 import team.maci.mvvmnoteapp.manager.AuthService
 import team.maci.mvvmnoteapp.manager.NoteManager
 import team.maci.mvvmnoteapp.util.UIDispatcher
@@ -24,10 +25,14 @@ class SplashViewModel @Inject constructor(
     fun onCreate(){
 
         GlobalScope.launch(uiDispatcher){
+
+            if(authService.isLoggedIn()){
+                noteManager.loadNotes()
+            }
+
             delay(2000)
             loading.set(false)
             delay(2000)
-            noteManager.loadNotes()
             if(authService.isLoggedIn()){
                 navigator.startListScreen()
             }else{

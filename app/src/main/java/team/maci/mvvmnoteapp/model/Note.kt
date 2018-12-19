@@ -1,5 +1,6 @@
 package team.maci.mvvmnoteapp.model
 
+import team.maci.mvvmnoteapp.database.entity.NoteEntity
 import java.io.Serializable
 import java.util.*
 
@@ -21,3 +22,17 @@ class Note(
     val updatedAt: Date?,
     val user: User
 ) : BaseNote(id, title, content)
+
+
+object NoteMapper{
+    fun mapToNoteEntity(note: Note) : NoteEntity{
+        return NoteEntity(
+            note.id,
+            note.title,
+            note.content,
+            note.createdAt,
+            note.updatedAt,
+            note.user.id
+        )
+    }
+}

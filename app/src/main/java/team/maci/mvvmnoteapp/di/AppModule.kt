@@ -1,6 +1,9 @@
 package team.maci.mvvmnoteapp.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.google.gson.*
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
@@ -21,6 +24,8 @@ import team.maci.mvvmnoteapp.ui.splash.SplashComponent
 import team.maci.mvvmnoteapp.util.UIDispatcher
 import javax.inject.Singleton
 import okhttp3.logging.HttpLoggingInterceptor
+import team.maci.mvvmnoteapp.database.NoteDatabase
+import team.maci.mvvmnoteapp.database.dao.UserDao
 import team.maci.mvvmnoteapp.ui.details.DetailsActivity
 import team.maci.mvvmnoteapp.ui.details.DetailsComponent
 import team.maci.mvvmnoteapp.ui.edit.EditComponent
@@ -113,4 +118,20 @@ class AppModule {
         })
         return gsonBuilder.create()
     }
+
+    @Provides
+    @Singleton
+    fun provideNoteDatabase(application: Application) : NoteDatabase{
+        return Room.databaseBuilder(
+            application,
+            NoteDatabase::class.java,
+            "note-database"
+        ).build()
+    }
+
+    @Provides
+    fun provideUserDao(noteDatabase: NoteDatabase) = noteDatabase.userDao()
+
+    @Provides
+    fun provideNoteDao(noteDatabase: NoteDatabase) = noteDatabase.noteDao()
 }

@@ -29,19 +29,24 @@ class ApiClient {
     }
 
     fun getNotes(token: String): Deferred<List<Note>> {
-        return apiInterface.getNotes(token)
+        return apiInterface.getNotes(formatToken(token))
     }
 
     fun createNote(token: String, note: BaseNote) : Deferred<Note>{
-        return apiInterface.createNote(token, note)
+        return apiInterface.createNote(formatToken(token), note)
     }
 
     fun updateNote(token: String, note: BaseNote) : Deferred<Note>{
-        return apiInterface.updateNote(token, note.id, note)
+        return apiInterface.updateNote(formatToken(token), note.id, note)
     }
 
-    fun deleteNote(token: String, note: BaseNote) : Deferred<Void>{
-        return apiInterface.deleteNote(token, note.id)
+    fun deleteNote(token: String, noteId: Int) : Deferred<Void>{
+        return apiInterface.deleteNote(formatToken(token), noteId)
+    }
+
+
+    private fun formatToken(token: String) : String{
+        return "Bearer $token"
     }
 
 

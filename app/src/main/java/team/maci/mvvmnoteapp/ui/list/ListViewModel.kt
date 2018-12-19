@@ -5,6 +5,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import team.maci.mvvmnoteapp.R.attr.adapter
+import team.maci.mvvmnoteapp.database.entity.NoteEntity
 import team.maci.mvvmnoteapp.manager.NoteManager
 import team.maci.mvvmnoteapp.model.Note
 import team.maci.mvvmnoteapp.ui.list.adapter.NoteAdapter
@@ -31,7 +32,7 @@ class ListViewModel @Inject constructor(
         listJob = null
     }
 
-    fun onListItemClickAction(note: Note) {
+    fun onListItemClickAction(note: NoteEntity) {
         navigator.startDetailsScreen(note)
     }
 
@@ -39,7 +40,7 @@ class ListViewModel @Inject constructor(
         navigator.startAddNoteScreen()
     }
 
-    fun onRemoveItemClickAction(note: Note) {
+    fun onRemoveItemClickAction(note: NoteEntity) {
         GlobalScope.launch(uiDispatcher) {
             noteManager.deleteNote(note)
             adapter.removeItem {

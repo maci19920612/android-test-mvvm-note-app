@@ -1,27 +1,32 @@
 package team.maci.mvvmnoteapp.ui.details
 
-import android.provider.ContactsContract
-import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import team.maci.mvvmnoteapp.database.entity.NoteEntity
 import team.maci.mvvmnoteapp.manager.NoteManager
 import team.maci.mvvmnoteapp.model.Note
+import java.util.prefs.NodeChangeEvent
 import javax.inject.Inject
 
 class DetailsViewModel @Inject constructor(
     private val noteManager: NoteManager
 ) : ViewModel() {
+
+
     fun onStart(noteId: Int) {
-        val note = noteManager.getNote(noteId)
-        if (note == null) {
-            navigator.navigateBack()
-            return
+        GlobalScope.launch {
+            val noteEntity = noteManager.getNote(noteId)
+            if (noteEntity == null) {
+                navigator.navigateBack()
+            }
+            note = noteEntity
         }
-        this.note = note
     }
 
     lateinit var navigator: IDetailsNavigator
 
-    var note: Note? = null
+    var note: NoteEntity? = null
 
 
     fun onEditClickAction() {
